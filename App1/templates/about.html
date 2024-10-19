@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Vaccination Information</title>
+    <style>
+        body {
+            background-color: #d9f9d9; /* Light green background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .navbar {
+            background-color: #2c3e50; /* Dark blue background for navbar */
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px; /* Width of the sidebar */
+            height: 100vh; /* Full height */
+            position: fixed; /* Fixes the navbar on the left */
+        }
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Vertical layout */
+        }
+        .navbar li {
+            margin: 15px 0; /* Space between items */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px; /* Padding for clickable area */
+            border-radius: 5px;
+            display: block; /* Makes the entire area clickable */
+        }
+        .navbar a:hover {
+            background-color: #1abc9c; /* Highlight on hover */
+        }
+        .container {
+            margin-left: 455px; /* Margin to prevent overlap with navbar */
+            max-width: 700px;
+            background: #a5d6a7; /* Green background for content */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            align:center
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50; /* Dark blue color for header */
+        }
+        h2 {
+            color: #1b5e20; /* Darker green for subheading */
+        }
+        .vaccination-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #c8e6c9; /* Light grey-green background for list items */
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <a href="{% url 'bookup' %}">Book Up</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'history' %}">History</a>
+            {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Child Vaccination Information</h1>
+        <img src="https://example.com/child-vaccination.jpg" alt="Child Vaccination" class="vaccination-image">
+
+        <h2>Vaccines Schedule</h2>
+        <ul>
+            <li>
+                <h3>At Birth</h3>
+                <img src="https://example.com/hepatitis-b.jpg" alt="Hepatitis B Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis B Vaccine (HBV)</strong>: This vaccine protects against the hepatitis B virus, which can cause serious liver infection. It is crucial to receive this vaccine as a single dose at birth to provide early protection.</p>
+            </li>
+            <li>
+                <h3>2 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Protects against diphtheria, tetanus, and pertussis. Diphtheria can cause severe throat infections, tetanus leads to muscle stiffness, and whooping cough (pertussis) can be fatal in infants. This is the first dose.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV (Inactivated Polio Vaccine)</strong>: This vaccine protects against poliomyelitis, a debilitating disease that can cause paralysis. The first dose is given to ensure early immunity.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib (Haemophilus influenzae type b)</strong>: Protects against severe bacterial infections that can lead to meningitis and pneumonia. The first dose helps shield infants from these serious illnesses.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>Pneumococcal Conjugate Vaccine (PCV)</strong>: This vaccine protects against pneumonia, meningitis, and other infections caused by the pneumococcal bacteria. Administering the first dose early is essential for protection.</p>
+                <img src="https://example.com/rotavirus.jpg" alt="Rotavirus Vaccine" class="vaccination-image">
+                <p><strong>Rotavirus Vaccine</strong>: Protects against severe diarrhea caused by rotavirus, a common virus in young children. Early vaccination is crucial for preventing dehydration and hospitalization.</p>
+            </li>
+            <li>
+                <h3>4 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Second dose to reinforce immunity against diphtheria, tetanus, and pertussis, ensuring continued protection.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV</strong>: Second dose to maintain protection against poliomyelitis.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib</strong>: Second dose to further protect against severe bacterial infections.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>PCV</strong>: Second dose to boost immunity against pneumonia and related diseases.</p>
+                <img src="https://example.com/rotavirus.jpg" alt="Rotavirus Vaccine" class="vaccination-image">
+                <p><strong>Rotavirus Vaccine</strong>: Second dose to enhance protection against severe diarrhea.</p>
+            </li>
+            <li>
+                <h3>6 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Third dose to ensure long-lasting immunity against diphtheria, tetanus, and pertussis.</p>
+                <img src="https://example.com/hepatitis-b.jpg" alt="Hepatitis B Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis B Vaccine</strong>: Second dose, which is important for sustaining protection against hepatitis B virus.</p>
+            </li>
+            <li>
+                <h3>12-15 Months</h3>
+                <img src="https://example.com/mmr.jpg" alt="MMR Vaccine" class="vaccination-image">
+                <p><strong>MMR Vaccine</strong>: This vaccine protects against measles, mumps, and rubella, three highly contagious diseases. The first dose is vital for establishing immunity.</p>
+                <img src="https://example.com/varicella.jpg" alt="Varicella Vaccine" class="vaccination-image">
+                <p><strong>Varicella Vaccine</strong>: Protects against chickenpox, a highly contagious viral infection. The first dose helps to significantly reduce the risk of infection.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib</strong>: Booster dose to ensure ongoing protection against serious bacterial infections.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>PCV</strong>: Booster dose to enhance protection against pneumococcal diseases.</p>
+            </li>
+            <li>
+                <h3>15-18 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Booster dose to reinforce immunity against diphtheria, tetanus, and pertussis, ensuring children remain protected as they grow.</p>
+            </li>
+            <li>
+                <h3>4-6 Years</h3>
+                <img src="https://example.com/mmr.jpg" alt="MMR Vaccine" class="vaccination-image">
+                <p><strong>MMR Vaccine</strong>: Second dose to provide lasting immunity against measles, mumps, and rubella.</p>
+                <img src="https://example.com/varicella.jpg" alt="Varicella Vaccine" class="vaccination-image">
+                <p><strong>Varicella Vaccine</strong>: Second dose to solidify protection against chickenpox.</p>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Booster dose to maintain immunity against diphtheria, tetanus, and pertussis.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV</strong>: Booster dose to continue protection against poliomyelitis.</p>
+            </li>
+            <li>
+                <h3>11-12 Years</h3>
+                <img src="https://example.com/tdap.jpg" alt="Tdap Vaccine" class="vaccination-image">
+                <p><strong>Tdap Vaccine</strong>: This booster protects against tetanus, diphtheria, and pertussis. It's crucial for adolescents to prevent these diseases as they enter their teenage years.</p>
+                <img src="https://example.com/hpv.jpg" alt="HPV Vaccine" class="vaccination-image">
+                <p><strong>HPV Vaccine</strong>: Protects against human papillomavirus, which can lead to certain cancers. The vaccine is given in a series for optimal protection.</p>
+                <img src="https://example.com/meningococcal.jpg" alt="Meningococcal Vaccine" class="vaccination-image">
+                <p><strong>Meningococcal Vaccine</strong>: This vaccine protects against meningitis and bloodstream infections caused by meningococcal bacteria. The first dose is critical for teenagers.</p>
+            </li>
+            <li>
+                <h3>16 Years</h3>
+                <img src="https://example.com/meningococcal.jpg" alt="Meningococcal Vaccine" class="vaccination-image">
+                <p><strong>Meningococcal Vaccine</strong>: Booster dose to enhance protection against meningitis as children approach adulthood, a crucial time for immunity.</p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

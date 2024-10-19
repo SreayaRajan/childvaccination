@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Vaccination Booking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #WHITE;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #5a2a82;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin: 5px 0;
+        }
+        .sidebar a:hover {
+            background-color: #4e2371;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 800px;
+            max-width: 700px;
+            margin: 20px auto;
+            margin-left: 520px; /* Adjust for sidebar width + padding */
+            
+        }
+        .container h1 {
+            text-align: center;
+            color: #5a2a82;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            flex: 1;
+            min-width: calc(33.33% - 10px);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input, .form-group select {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5a2a82;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #4e2371;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+        }
+        .helpline {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .helpline span {
+            display: block;
+            color: #5a2a82;
+            font-weight: bold;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .second-container {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <a href="{% url 'bookup' %}">Book Up</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'history' %}">History</a>
+            {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Child Vaccination</h1>
+        <div class="helpline">
+            <span>Helpline Number</span>
+            <span>0483 211 5555</span>
+        </div>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" value="{{ user.child_name }}" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" id="dob" value="{{ user.date_of_birth  }}" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    {% comment %} <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                       
+                    </select> {% endcomment %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vaccination">Vaccinations</label>
+                    <select id="vaccination" name="vaccination">
+                        <option value="">Select Vaccine</option>
+                        <option value=""></option>
+                        <option value="">Hepatitis B (HBV) (Birth) </option>
+                        <option value="">Hepatitis B (HBV) ( 1-2 months)</option>
+                        <option value="">Hepatitis B (HBV) ( 6-12 months)</option>
+                        <option value="">Rotavirus (RV) (2 months)</option>
+                        <option value="">Rotavirus (RV) (4 months)</option>
+                        <option value="">Rotavirus (RV) (6 months)</option>
+                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" placeholder="Choose your slot">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact No.</label>
+                    <input type="text" id="contact" value="{{ user.whatsapp_number }}" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="container second-container">
+        <h1>Child Vaccination Information</h1>
+        <img src="https://example.com/child-vaccination.jpg" alt="Child Vaccination" class="vaccination-image">
+
+        <h2>Vaccines Schedule</h2>
+        <ul>
+            <li>
+                <h3>At Birth</h3>
+                <img src="https://example.com/hepatitis-b.jpg" alt="Hepatitis B Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis B Vaccine (HBV)</strong>: This vaccine protects against the hepatitis B virus, which can cause serious liver infection. It is crucial to receive this vaccine as a single dose at birth to provide early protection.</p>
+            </li>
+            <li>
+                <h3>2 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Protects against diphtheria, tetanus, and pertussis. Diphtheria can cause severe throat infections, tetanus leads to muscle stiffness, and whooping cough (pertussis) can be fatal in infants. This is the first dose.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV (Inactivated Polio Vaccine)</strong>: This vaccine protects against poliomyelitis, a debilitating disease that can cause paralysis. The first dose is given to ensure early immunity.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib (Haemophilus influenzae type b)</strong>: Protects against severe bacterial infections that can lead to meningitis and pneumonia. The first dose helps shield infants from these serious illnesses.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>Pneumococcal Conjugate Vaccine (PCV)</strong>: This vaccine protects against pneumonia, meningitis, and other infections caused by the pneumococcal bacteria. Administering the first dose early is essential for protection.</p>
+                <img src="https://example.com/rotavirus.jpg" alt="Rotavirus Vaccine" class="vaccination-image">
+                <p><strong>Rotavirus Vaccine</strong>: Protects against severe diarrhea caused by rotavirus, a common virus in young children. Early vaccination is crucial for preventing dehydration and hospitalization.</p>
+            </li>
+            <li>
+                <h3>4 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Second dose to reinforce immunity against diphtheria, tetanus, and pertussis, ensuring continued protection.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV</strong>: Second dose to maintain protection against poliomyelitis.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib</strong>: Second dose to further protect against severe bacterial infections.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>PCV</strong>: Second dose to boost immunity against pneumonia and related diseases.</p>
+                <img src="https://example.com/rotavirus.jpg" alt="Rotavirus Vaccine" class="vaccination-image">
+                <p><strong>Rotavirus Vaccine</strong>: Second dose to enhance protection against severe diarrhea.</p>
+            </li>
+            <li>
+                <h3>6 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Third dose to ensure long-lasting immunity against diphtheria, tetanus, and pertussis.</p>
+                <img src="https://example.com/hepatitis-b.jpg" alt="Hepatitis B Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis B Vaccine</strong>: Second dose, which is important for sustaining protection against hepatitis B virus.</p>
+            </li>
+            <li>
+                <h3>12-15 Months</h3>
+                <img src="https://example.com/mmr.jpg" alt="MMR Vaccine" class="vaccination-image">
+                <p><strong>MMR Vaccine (Measles, Mumps, Rubella)</strong>: Protects against three serious diseases—measles, mumps, and rubella. The first dose ensures early protection.</p>
+                <img src="https://example.com/hib.jpg" alt="Hib Vaccine" class="vaccination-image">
+                <p><strong>Hib</strong>: Final dose to complete the series and ensure full protection against bacterial infections.</p>
+                <img src="https://example.com/pcv.jpg" alt="PCV Vaccine" class="vaccination-image">
+                <p><strong>PCV</strong>: Final dose to complete the series and guarantee continued immunity against pneumococcal infections.</p>
+                <img src="https://example.com/varicella.jpg" alt="Varicella Vaccine" class="vaccination-image">
+                <p><strong>Varicella Vaccine (Chickenpox)</strong>: Protects against chickenpox, a highly contagious disease. The first dose is essential for prevention.</p>
+            </li>
+            <li>
+                <h3>15-18 Months</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Fourth dose to maintain strong immunity against diphtheria, tetanus, and pertussis.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV</strong>: Third dose to continue protection against poliomyelitis.</p>
+                <img src="https://example.com/hepatitis-a.jpg" alt="Hepatitis A Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis A Vaccine</strong>: First dose to prevent hepatitis A, a liver infection caused by the hepatitis A virus.</p>
+            </li>
+            <li>
+                <h3>4-6 Years</h3>
+                <img src="https://example.com/dtp.jpg" alt="DTP Vaccine" class="vaccination-image">
+                <p><strong>DTP Vaccine</strong>: Fifth dose to ensure continued protection against diphtheria, tetanus, and pertussis.</p>
+                <img src="https://example.com/ipv.jpg" alt="IPV Vaccine" class="vaccination-image">
+                <p><strong>IPV</strong>: Fourth dose to maintain immunity against poliomyelitis.</p>
+                <img src="https://example.com/mmr.jpg" alt="MMR Vaccine" class="vaccination-image">
+                <p><strong>MMR</strong>: Second dose to guarantee continued protection against measles, mumps, and rubella.</p>
+                <img src="https://example.com/varicella.jpg" alt="Varicella Vaccine" class="vaccination-image">
+                <p><strong>Varicella Vaccine</strong>: Second dose to ensure long-term protection against chickenpox.</p>
+                <img src="https://example.com/hepatitis-a.jpg" alt="Hepatitis A Vaccine" class="vaccination-image">
+                <p><strong>Hepatitis A Vaccine</strong>: Second dose to complete the series and ensure full protection against hepatitis A.</p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
