@@ -12,6 +12,12 @@ from .forms import ProfileForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+import random
+from django.views import View
+from django.contrib.auth.forms import PasswordResetForm
+from django.http import HttpRequest
+# from django.contrib.auth.views import PasswordResetView
+# from django.urls import reverse_lazy 
 
 def home(request):
     return render(request, 'index.html')
@@ -46,7 +52,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome, {username}! You have successfully logged in.')
-                return redirect('profile')  # Replace 'profile' with the name of your profile page view
+                return redirect('bookup')  # Replace 'profile' with the name of your profile page view
             else:
                 messages.error(request, 'Invalid username or password.')
         else:
@@ -58,17 +64,35 @@ def user_login(request):
 
 
 @login_required
-def profile_view(request):
+def profile_view(request:HttpRequest):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('profile')
+            return redirect('profile.html')
     else:
         form = ProfileForm(instance=request.user)
     
     return render(request, 'profile.html', {'user': request.user})
+def forgetpassword(request):
+     return render(request, 'forgetpassword.html')
+    # if request.method == 'POST':
+    #     email = request.POST.get('email')
+    #     if User.objects.filter(email=email).exists():
+    #         form = PasswordResetForm(request.POST)
+    #         if form.is_valid():
+    #             form.save(
+    #                 request=request,
+    #                 use_https=request.is_secure(),
+    #                 email_template_name='registration/password_reset_email.html',
+    #                 subject_template_name='registration/password_reset_subject.txt',
+    #             )
+    #         return render(request, 'forgetpassword.html', {'message': 'Password reset email has been sent.'})
+    #     else:
+    #         return render(request, 'forgetpassword.html', {'error': 'No user with this email address.'})
+    
+
 
 
 
@@ -131,9 +155,54 @@ def profile_edit_view(request):
         'disability': user.disability,
         'disability_description': user.disability_description,
     })
+
+class BookingCreateView(View):
+    def get(self, request):
+        return render(request, 'bookup.html')
+
+    def post(self, request):
+        vaccinations = request.POST.get('vaccination')
+        appointment_date = request.POST.get('date')
+        print(vaccinations)
+        print(appointment_date)
+
+        # Check if user is authenticated
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to book a vaccination.")
+            return redirect('login')
+
+        # Check if the required fields are filled
+        if not vaccinations or not appointment_date:
+            messages.error(request, "Please fill in all required fields.")
+            return redirect('book_vaccination')
+
+        # Get the user's profile
+        profile = request.user
+        print(profile)
+
+        # Create a new booking entry
+        token_number = random.randint(1000, 9999)  # Generate a random token number
+        Booking.objects.create(
+            patient=profile,
+            vaccinations=vaccinations,
+            appointment_date=appointment_date,
+            token_number=token_number,
+            appointment_fee=700.00  # Adjust as needed
+        )
+        print(",,,,,,,,,,,,,,,,,,,")
+        
+        messages.success(request, "Your booking has been created successfully!")
+        return redirect('success')
+
 def bookup(request):
     return render(request, 'bookup.html')
-def about(request):
-    return render(request, 'about.html')
+    # return render( 'profile.')
+def success(request):
+    return render(request, 'success.html')
+# def about(request):
+    # return render(request, 'about.html')
 def history(request):
     return render(request, 'history.html')
+def admin_login(request):
+    return render(request, 'admin_login.html')
+

@@ -22,5 +22,8 @@ urlpatterns = [
     
 
     path('', include('App1.urls')),  
+    
+#     path('admin_login/',admin.site.urls),
+
 ]
 

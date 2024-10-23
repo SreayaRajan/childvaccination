@@ -13,9 +13,11 @@ class Profile(AbstractUser):
     disability = models.BooleanField(default=False)
     disability_description = models.CharField(max_length=255, null=True, blank=True)
     
-    def _str_(self):
-        return self.username
+   
     
+    
+    def __str__(self):
+        return self.child_name or self.user.username
 class Booking(models.Model):
     STATUS_CHOICES = [
         ('Upcoming', 'Upcoming'),
@@ -32,6 +34,7 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     token_number = models.PositiveIntegerField() 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Upcoming')
+    appointment_fee = models.DecimalField(max_digits=10, decimal_places=2, editable=False, default=0.00)
     
     # Fixed payment method to a single value
     payment_method = models.CharField(max_length=10, default='razorpay', editable=False)
