@@ -21,7 +21,7 @@ urlpatterns = [
     
     
     # ADMIN
-    path('login/', views.admin_login, name='login'),
+    path('admin_login/', views.admin_login, name='admin_login'),
     
 ]
  

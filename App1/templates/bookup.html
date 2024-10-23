@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Vaccination Booking Form</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,6 +100,7 @@
             font-weight: bold;
         }
     </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -117,7 +119,7 @@
             <span>Helpline Number</span>
             <span>0483 211 5555</span>
         </div>
-        <form action="{% url 'book_vaccination' %}" method="post">
+        <form id="booking-form" action="{% url 'book_vaccination' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username">Username</label>
@@ -128,7 +130,6 @@
                 <label for="dob">Date of Birth</label>
                 <input type="text" id="dob" value="{{ user.date_of_birth  }}" class="form-control" readonly>
             </div>
-            
             
             <div class="form-group">
                 <label for="vaccination">Vaccinations</label>
@@ -152,9 +153,35 @@
                 <input type="text" id="contact" value="{{ user.whatsapp_number }}" class="form-control" readonly>
             </div>
             <div class="form-group">
-                <button type="submit">Submit</button>
+                <button type="button" id="rzp-button">Submit</button>
             </div>
         </form>
     </div>
+
+    <script>
+        document.getElementById('rzp-button').onclick = function(e){
+            e.preventDefault();
+            var options = {
+                "key": "rzp_test_d5VCv4MOwkIpcU", // Enter the Key ID generated from the Dashboard
+                "amount": 70000, // Amount is in currency subunits. Default currency is INR. Hence, 70000 refers to 700 INR
+                "currency": "INR",
+                "name": "Child Vaccination",
+                "description": "Appointment Fee",
+                "handler": function (response){
+                    document.getElementById('booking-form').submit();
+                },
+                "prefill": {
+                    "name": "sreaya vr",
+                    "email": "sreayarajan75@gmail.com",
+                    "contact": "8078747080"
+                },
+                "theme": {
+                    "color": "#5a2a82"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    </script>
 </body>
 </html>

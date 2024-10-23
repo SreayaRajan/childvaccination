@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages 
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from .forms import ProfileRegistrationForm
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
@@ -16,6 +15,10 @@ import random
 from django.views import View
 from django.contrib.auth.forms import PasswordResetForm
 from django.http import HttpRequest
+from django.conf import settings
+import razorpay
+import pkg_resources
+
 # from django.contrib.auth.views import PasswordResetView
 # from django.urls import reverse_lazy 
 
@@ -156,15 +159,14 @@ def profile_edit_view(request):
         'disability_description': user.disability_description,
     })
 
+
 class BookingCreateView(View):
     def get(self, request):
-        return render(request, 'bookup.html')
+        return render(request, 'bookup.html', {'razorpay_key_id': settings.RAZORPAY_KEY_ID})
 
     def post(self, request):
         vaccinations = request.POST.get('vaccination')
         appointment_date = request.POST.get('date')
-        print(vaccinations)
-        print(appointment_date)
 
         # Check if user is authenticated
         if not request.user.is_authenticated:
@@ -178,22 +180,33 @@ class BookingCreateView(View):
 
         # Get the user's profile
         profile = request.user
-        print(profile)
 
         # Create a new booking entry
         token_number = random.randint(1000, 9999)  # Generate a random token number
-        Booking.objects.create(
+        booking = Booking.objects.create(
             patient=profile,
             vaccinations=vaccinations,
             appointment_date=appointment_date,
             token_number=token_number,
             appointment_fee=700.00  # Adjust as needed
         )
-        print(",,,,,,,,,,,,,,,,,,,")
-        
+
+        # Create a Razorpay client instance
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        # Create a Razorpay order
+        payment = client.order.create({
+            'amount': 700,  # Amount in paise
+            'currency': 'INR',
+            'payment_capture': '1'  # Auto capture
+        })
+
+        booking.razorpay_order_id = payment['id']
+        booking.save()
+
+        # Redirect to a success page or send a success message
         messages.success(request, "Your booking has been created successfully!")
         return redirect('success')
-
 def bookup(request):
     return render(request, 'bookup.html')
     # return render( 'profile.')
@@ -204,5 +217,6 @@ def success(request):
 def history(request):
     return render(request, 'history.html')
 def admin_login(request):
-    return render(request, 'admin_login.html')
+    return render(request, 'adminside/admin_login.html')
+
 

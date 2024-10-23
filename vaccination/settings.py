@@ -140,3 +140,8 @@ DATABASES = {
         "PORT":"5432"
     }
 }
+
+# settings.py
+
+RAZORPAY_KEY_ID = "rzp_test_d5VCv4MOwkIpcU"
+RAZORPAY_KEY_SECRET = "OXxDDHSLPDiM9yvqbd1SAFdN"
