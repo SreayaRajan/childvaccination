@@ -95,12 +95,20 @@
     </style>
 </head>
 <body>
-    <nav class="sidebar">
+    <nav class="navbar">
+    <div class="sidebar">
         <h3>Navigation</h3>
         <a href="{% url 'bookup' %}">Book Up</a>
+        <a href="{% url 'about' %}">About</a>
         <a href="{% url 'profile' %}">Profile</a>
         <a href="{% url 'history' %}">History</a>
-    </nav>
+       
+        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+            {% csrf_token %}
+        </form>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+    </div>
+</nav>
     <div class="content">
         <div class="container">
             <h2>Welcome, {{ user.username }}</h2>
@@ -157,19 +165,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>GENDER</td>
-                        <td>
-                            <span class="display-value">{{ user.gender }}</span>
-                            <div class="edit-input hidden gender-box">
-                                <label><input type="radio" name="gender" value="male" {% if user.gender == 'male' %}checked{% endif %}> Male</label>
-                                <label><input type="radio" name="gender" value="female" {% if user.gender == 'female' %}checked{% endif %}> Female</label>
-                            </div>
-                            <i class="edit-icon" onclick="toggleEditMode(this)">Edit</i>
-                            <button type="submit" class="save-button hidden">Save</button>
-                            <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
-                        </td>
-                    </tr>
-                    <tr>
+                        
                         <td>DATE OF BIRTH</td>
                         <td>
                             <span class="display-value">{{ user.date_of_birth }}</span>
@@ -177,8 +173,28 @@
                             <i class="edit-icon" onclick="toggleEditMode(this)">Edit</i>
                             <i class="save-button hidden" onclick="saveChanges(this)">Save</i>
                             <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
+                         </td>
+                  </tr>
+                     <form method="post" action="{% url 'profile_edit' %}">  <!-- Updated with your view URL -->
+                        {% csrf_token %}
+                        <td>GENDER</td>
+                        <td>
+                            <span class="display-value">{{ user.gender }}</span>
+                            <div class="edit-input hidden gender-box">
+                                <label>
+                                    <select name="gender">
+                                        <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
+                                        <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+                                        <option value="other" {% if user.gender == 'other' %}selected{% endif %}>Other</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <i class="edit-icon" onclick="toggleEditMode(this)">Edit</i>
+                            <button type="submit" class="save-button hidden">Save</button>
+                            <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
                         </td>
-                    </tr>
+                    </form>
+                    
                     <tr>
                         <td>DISABILITY</td>
                         <td>
@@ -201,10 +217,10 @@
                             <i class="save-button hidden" onclick="saveChanges(this)">Save</i>
                             <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
                         </td>
-                    </tr>
+                    
                 </tbody>
             </table>
-        </div>
+        </div> 
     </div>
     <script>
         function toggleDisabilityDescription(element) {

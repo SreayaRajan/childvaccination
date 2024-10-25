@@ -107,10 +107,14 @@
         <div class="sidebar">
             <h3>Navigation</h3>
             <a href="{% url 'bookup' %}">Book Up</a>
-            {% comment %} <a href="{% url 'about' %}">About</a> {% endcomment %}
+            <a href="{% url 'about' %}">About</a>
             <a href="{% url 'profile' %}">Profile</a>
             <a href="{% url 'history' %}">History</a>
-            {% comment %} <a href="{% url 'logout' %}">Logout</a> {% endcomment %}
+           
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
         </div>
     </nav>
     <div class="container">

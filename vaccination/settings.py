@@ -145,3 +145,6 @@ DATABASES = {
 
 RAZORPAY_KEY_ID = "rzp_test_d5VCv4MOwkIpcU"
 RAZORPAY_KEY_SECRET = "OXxDDHSLPDiM9yvqbd1SAFdN"
+
+LOGOUT_REDIRECT_URL = 'login'  # Ensure 'login' matches your login URL name
+

@@ -209,11 +209,13 @@ class BookingCreateView(View):
         return redirect('success')
 def bookup(request):
     return render(request, 'bookup.html')
-    # return render( 'profile.')
+
 def success(request):
-    return render(request, 'success.html')
-# def about(request):
-    # return render(request, 'about.html')
+    booking = Booking.objects.filter(patient=request.user).latest('id')
+    return render(request, 'success.html', {'booking': booking})
+
+def about(request):
+     return render(request, 'about.html')
 def history(request):
     return render(request, 'history.html')
 def admin_login(request):

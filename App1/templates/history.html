@@ -1,1 +1,32 @@
-history PAGE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        /* Your existing styles */
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <a href="{% url 'bookup' %}">Book Up</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'history' %}">History</a>
+            
+        
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Booking History</h1>
+        <!-- History details go here -->
+    </div>
+</body>
+</html>

@@ -1,177 +1,77 @@
+<!-- adminside/admin_login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Admin Login</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
         body {
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-        }
-
-        header {
-            background: #fff;
-            padding: 10px 0;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        header nav ul li {
-            margin: 0 20px;
-        }
-
-        header nav ul li a {
-            color: black;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        header .btn.book-appointment {
-            background: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            margin-left: auto;
-        }
-
-        .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 60px); /* Adjust for header height */
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
         }
-
-        form {
-            background: #f9f9f9;
-            padding: 20px;
+        .login-container {
+            background-color: #fff;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            width: 300px;
+            text-align: center;
         }
-
+        h2 {
+            margin-bottom: 1em;
+            color: #333;
+        }
         label {
             display: block;
-            margin-bottom: 10px;
+            margin: 0.5em 0 0.2em;
+            text-align: left;
         }
-
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid #ddd;
             border-radius: 4px;
         }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #28a745;
-            color: white;
+        .login-button {
+            background-color: #4CAF50;
+            color: #fff;
             border: none;
+            padding: 0.5em;
+            width: 100%;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 1em;
         }
-
-        h6 {
-            text-align: center;
-            margin-top: 20px;
+        .login-button:hover {
+            background-color: #45a049;
         }
-        .forgot-password {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .forgot-password a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-
-        .message-list {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-
-        .message-list li {
-            background: #ffdddd;
-            color: #d8000c;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-left: 5px solid #d8000c;
+        .error-message {
+            color: red;
+            margin-bottom: 1em;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Doctors</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="{% url 'login' %}" class="btn book-appointment">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    {% if messages %}
-    <ul class="message-list">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    <!-- Login Form -->
     <div class="login-container">
-        <form action="{% url 'login' %}" method="POST">
+        <h2>Admin Login</h2>
+        {% if form.errors %}
+            <p class="error-message">Invalid username or password. Please try again.</p>
+        {% endif %}
+        <form method="post" action="{% url 'admin_login' %}">
             {% csrf_token %}
-            <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" required>
 
-            {{ form.non_field_errors }}
+            <label for="id_password">Password</label>
+            <input type="password" name="password" id="id_password" required>
 
-            <label for="username">Username:</label>
-            {{ form.username }}
-
-            <label for="password">Password:</label>
-            {{ form.password }}
-            
-            
-
-            <button type="submit">Admin Login</button>
-            <h5><a href="{% url 'forgetpassword' %}">Forgot Password?</a><h5>
-            <h6>Don't have an account? <a href="{% url 'register' %}" class="btn book-appointment">Register</a></h6>
+            <button type="submit" class="login-button">Login</button>
         </form>
     </div>
 </body>

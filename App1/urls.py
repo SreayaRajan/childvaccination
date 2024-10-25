@@ -1,5 +1,6 @@
 from django.urls import path
 # from .views import forgetpassword
+from django.contrib.auth.views import LogoutView
 from . import views 
 from .views import *
 
@@ -13,9 +14,10 @@ urlpatterns = [
     path('profile/edit/', views.profile_edit_view, name='profile_edit'),
     path('bookup/', views.bookup, name='bookup'),
     path('book_vaccination/', BookingCreateView.as_view(), name='book_vaccination'),
-     path('success', views.success, name='success'),
-    # path('about/', views.about, name='about'),
+    path('success', views.success, name='success'),
+    path('about/', views.about, name='about'),
     path('history', views.history, name='history'),
+   path('logout/', LogoutView.as_view(), name='logout'),
     path('forgetpassword', views.forgetpassword, name='forgetpassword'),
     
     
