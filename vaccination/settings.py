@@ -148,3 +148,15 @@ RAZORPAY_KEY_SECRET = "OXxDDHSLPDiM9yvqbd1SAFdN"
 
 LOGOUT_REDIRECT_URL = 'login'  # Ensure 'login' matches your login URL name
 
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sumishasudha392@gmail.com'
+EMAIL_HOST_PASSWORD = 'ebvd zdgw thrs sgsf'

@@ -101,7 +101,7 @@
         <a href="{% url 'bookup' %}">Book Up</a>
         <a href="{% url 'about' %}">About</a>
         <a href="{% url 'profile' %}">Profile</a>
-        <a href="{% url 'history' %}">History</a>
+        <a href="{% url 'history' %}">Op History</a>
        
         <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
             {% csrf_token %}
@@ -217,6 +217,18 @@
                             <i class="save-button hidden" onclick="saveChanges(this)">Save</i>
                             <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
                         </td>
+                    </tr>   
+                    <tr>
+                        <td>UPI NUMBER</td>
+                        <td>
+                            <span class="display-value">{{ user.upi_number }}</span>
+                            <input type="text" name="upi_number" class="edit-input hidden" value="{{ user.upi_number }}">
+                            <i class="edit-icon" onclick="toggleEditMode(this)">Edit</i>
+                            <i class="save-button hidden" onclick="saveChanges(this)">Save</i>
+                            <i class="cancel-button hidden" onclick="cancelEdit(this)">Cancel</i>
+                        </td>
+                    </tr>
+                     
                     
                 </tbody>
             </table>

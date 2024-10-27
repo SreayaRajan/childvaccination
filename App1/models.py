@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
 class Profile(AbstractUser):
     email = models.EmailField(unique=True, null=False, blank=False)  # Email is required and unique
     phone_number = models.CharField(max_length=15, null=True, blank=True)  # Optional phone number
@@ -12,12 +12,13 @@ class Profile(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     disability = models.BooleanField(default=False)
     disability_description = models.CharField(max_length=255, null=True, blank=True)
+    upi_number = models.CharField(max_length=50, null=True, blank=True)
     
    
     
     
     def __str__(self):
-        return self.child_name or self.user.username
+        return self.child_name or self.username
 class Booking(models.Model):
     STATUS_CHOICES = [
         ('Upcoming', 'Upcoming'),

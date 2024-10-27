@@ -109,7 +109,7 @@
             <a href="{% url 'bookup' %}">Book Up</a>
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'profile' %}">Profile</a>
-            <a href="{% url 'history' %}">History</a>
+            <a href="{% url 'history' %}">Op History</a>
            
             <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                 {% csrf_token %}
@@ -150,14 +150,16 @@
             
             <div class="form-group">
                 <label for="date">Date</label>
-                <input type="date" id="date" name="date" placeholder="Choose your slot">
+                <input type="date" id="date" name="date" placeholder="Choose your slot" min="{{ today|date:'Y-m-d' }}">
+                <small id="token-limit-message" style="color: red; display: none;"></small>
             </div>
+            
             <div class="form-group">
                 <label for="contact">Contact No.</label>
                 <input type="text" id="contact" value="{{ user.whatsapp_number }}" class="form-control" readonly>
             </div>
             <div class="form-group">
-                <button type="button" id="rzp-button">Submit</button>
+                <button type="button" id="rzp-button" disabled>Submit</button>
             </div>
         </form>
     </div>
@@ -187,5 +189,34 @@
             rzp1.open();
         }
     </script>
+    <script>
+        const dateField = document.getElementById('date');
+        const messageField = document.getElementById('token-limit-message');
+        const submitButton = document.getElementById('rzp-button');
+    
+        dateField.addEventListener('change', function() {
+            const selectedDate = dateField.value;
+            if (!selectedDate) return;
+    
+            fetch(`/check_token_limit/?date=${selectedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        messageField.textContent = data.error;
+                        messageField.style.display = "block";
+                        submitButton.disabled = true;
+                    } else if (data.token_count >= 8) {
+                        messageField.textContent = "All tokens for the selected day are booked. Please choose another day.";
+                        messageField.style.display = "block";
+                        submitButton.disabled = true;
+                    } else {
+                        messageField.style.display = "none";
+                        submitButton.disabled = false;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+    
 </body>
 </html>

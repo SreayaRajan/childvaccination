@@ -81,7 +81,7 @@
             <a href="{% url 'bookup' %}">Book Up</a>
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'profile' %}">Profile</a>
-            <a href="{% url 'history' %}">History</a>
+            <a href="{% url 'history' %}">Op History</a>
             <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                 {% csrf_token %}
             </form>
@@ -111,7 +111,7 @@
                 
             </div>
 
-             <div class="vaccination-details">
+             {% comment %} <div class="vaccination-details">
                 <h2>Vaccination Schedule</h2>
                 
                 <h3>Birth</h3>
@@ -154,7 +154,7 @@
 
                 <h3>16 Years</h3>
                 <p><strong>MCV4 (Meningococcal):</strong> Booster dose given at 16 years.</p>
-            </div>
+            </div> {% endcomment %}
         </div>  
     </div>
 </body>
