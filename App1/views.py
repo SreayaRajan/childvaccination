@@ -350,8 +350,8 @@ def refund_booking(request):
         messages.error(request, 'Booking not found.')
     
     return redirect('notification')
-def forgetpassword(request):
-     return render(request, 'forgetpassword.html')
+# def forgetpassword(request):
+#      return render(request, 'forgetpassword.html')
     # if request.method == 'POST':
     #     email = request.POST.get('email')
     #     if User.objects.filter(email=email).exists():

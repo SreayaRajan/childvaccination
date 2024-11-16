@@ -20,7 +20,7 @@ urlpatterns = [
     path('history', views.history, name='history'),
     path('cancel_booking/<int:booking_id>/', cancel_booking, name='cancel_booking'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('forgetpassword', views.forgetpassword, name='forgetpassword'),
+    # path('forgetpassword', views.forgetpassword, name='forgetpassword'),
     
     
     

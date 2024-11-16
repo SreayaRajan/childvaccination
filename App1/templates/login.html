@@ -134,10 +134,10 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Doctors</a></li>
+                    <li><a href="#">Doctor</a></li>
                     <li><a href="#">Services</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    {% comment %} <li><a href="#">Pages</a></li>
+                    <li><a href="#">Blogs</a></li> {% endcomment %}
                     <li><a href="#">Contact Us</a></li>
                     <li><a href="{% url 'login' %}" class="btn book-appointment">Login</a></li>
                 </ul>
@@ -170,7 +170,7 @@
             
 
             <button type="submit">Login</button>
-            <h5><a href="{% url 'forgetpassword' %}">Forgot Password?</a><h5>
+            {% comment %} <h5><a href="{% url 'forgetpassword' %}">Forgot Password?</a><h5> {% endcomment %}
             <h6>Don't have an account? <a href="{% url 'register' %}" class="btn book-appointment">Register</a></h6>
         </form>
     </div>
